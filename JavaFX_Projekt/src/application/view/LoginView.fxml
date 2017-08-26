@@ -1,6 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" />
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="225.0" prefWidth="286.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.LoginController">
+   <children>
+      <Label alignment="CENTER" prefHeight="53.0" prefWidth="309.0" text="PANEL LOGOWANIA" textAlignment="CENTER">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Separator prefWidth="200.0" />
+      <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="26.0" prefWidth="309.0" text="Podaj login" textAlignment="CENTER" />
+      <TextField fx:id="tf_login" />
+      <Label alignment="CENTER" prefHeight="26.0" prefWidth="310.0" text="Podaj hasło" textAlignment="CENTER" />
+      <AnchorPane prefHeight="63.0" prefWidth="309.0">
+         <children>
+            <PasswordField fx:id="pf_pass" layoutY="2.0" prefHeight="26.0" prefWidth="203.0" />
+            <TextField fx:id="tf_pass" layoutY="2.0" prefHeight="26.0" prefWidth="203.0" visible="false" />
+            <Button fx:id="btn_show" layoutX="203.0" mnemonicParsing="false" onMouseEntered="#showAction" onMouseExited="#hideAction" prefHeight="28.0" prefWidth="81.0" text="Pokaż hasło" />
+         </children>
+      </AnchorPane>
+      <HBox prefHeight="32.0" prefWidth="286.0">
+         <children>
+            <Button fx:id="btn_db" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#loginDBAction" prefHeight="28.0" prefWidth="147.0" text="Zaloguj do bazy danych" />
+            <Button fx:id="btn_close" layoutX="91.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#closeAction" prefHeight="29.0" prefWidth="143.0" text="Wyjdź z programu" />
+         </children>
+      </HBox>
+   </children>
+</VBox>

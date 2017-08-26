@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.DBUserController">
+   <children>
+      <TableView fx:id="TableTwo" prefHeight="200.0" prefWidth="200.0">
+        <columns>
+          <TableColumn fx:id="col_id" prefWidth="51.0" text="ID" />
+          <TableColumn fx:id="col_name" prefWidth="108.0" text="Worked hours" />
+            <TableColumn fx:id="col_last" prefWidth="258.0" />
+            <TableColumn fx:id="col_salary" prefWidth="183.0" />
+        </columns>
+      </TableView>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0">
+         <children>
+            <HBox layoutY="36.0" prefHeight="104.0" prefWidth="600.0">
+               <children>
+                  <VBox prefHeight="104.0" prefWidth="111.0">
+                     <children>
+                        <Label fx:id="lbl_name" alignment="CENTER_RIGHT" disable="true" prefHeight="26.0" prefWidth="159.0" text="Podaj imię: " textAlignment="RIGHT" />
+                        <Label fx:id="lbl_last" alignment="CENTER_RIGHT" disable="true" prefHeight="24.0" prefWidth="157.0" text="Podaj nazwisko: " textAlignment="RIGHT" />
+                        <Label fx:id="lbl_salary" alignment="CENTER_RIGHT" disable="true" prefHeight="23.0" prefWidth="154.0" text="Podaj zarobki netto: " textAlignment="RIGHT" />
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="104.0" prefWidth="151.0">
+                     <children>
+                        <TextField fx:id="tf_name" disable="true" />
+                        <TextField fx:id="tf_last" disable="true" />
+                        <TextField fx:id="tf_salary" disable="true" />
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+            <Button fx:id="btn_insert" disable="true" layoutX="467.0" layoutY="141.0" mnemonicParsing="false" onAction="#btnInsertCommitAction" prefHeight="46.0" prefWidth="121.0" text="Insert commit" />
+            <Button fx:id="btn_update" disable="true" layoutX="321.0" layoutY="141.0" mnemonicParsing="false" onAction="#btnUpdateCommitAction" prefHeight="46.0" prefWidth="121.0" text="Update commit" />
+            <HBox layoutX="-1.0" layoutY="-2.0" prefHeight="26.0" prefWidth="600.0">
+               <children>
+                  <Button fx:id="select" mnemonicParsing="false" onAction="#btnSelectAction" prefHeight="25.0" prefWidth="150.0" text="Select" />
+                  <Button fx:id="delete" mnemonicParsing="false" onAction="#btnDeleteAction" prefWidth="150.0" text="Delete" />
+                  <Button fx:id="update" mnemonicParsing="false" onAction="#btnUpdateAction" prefWidth="150.0" text="Update" />
+                  <Button fx:id="insert" mnemonicParsing="false" onAction="#btnInsertAction" prefWidth="150.0" text="Insert" />
+               </children>
+            </HBox>
+         </children>
+      </AnchorPane>
+   </children>
+</VBox>
