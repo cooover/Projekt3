@@ -38,6 +38,7 @@ public class LoginController {
     public DBConnector db;
     String logowanie;
     String uprawnienia;
+    static int idPracownika;
     @FXML
     void showAction(MouseEvent event) {
     	pf_pass.setVisible(false);
@@ -63,6 +64,7 @@ public class LoginController {
     void loginDBAction(MouseEvent event) throws ClassNotFoundException, SQLException, IOException {
     	Connection conn1 = db.Connection();
     	Statement stat = conn1.createStatement();
+    	try {
     	ResultSet rs = stat.executeQuery("select * from users where login ='"+tf_login.getText()+"'and pass='"+pf_pass.getText()+"';");
     	boolean next = rs.next();
     	if(rs.getString("perm").equals("111")) {			 // logowanie pracodawcy
@@ -84,7 +86,8 @@ public class LoginController {
 	    	}   
     	}else {
     		if(next) { 										// logowanie pracownika
-	    		logowanie = rs.getString("login");
+    			idPracownika = rs.getInt("id_u");
+    			logowanie = rs.getString("login");
 	    		Stage stageTable = new Stage();
 	    		Parent parent =(Parent) FXMLLoader.load(getClass().getResource("/application/view/DBUserView.fxml"));
 	    		Scene sceneTable = new Scene(parent);
@@ -99,6 +102,13 @@ public class LoginController {
 	    		a.setHeaderText("UWAGA!");
 	    		a.showAndWait();
 	    	}   
+    	}
+    	}catch(SQLException e) {
+    		Alert a = new Alert(AlertType.INFORMATION);
+    		a.setContentText("Poda³eœ b³êdny login lub has³o");
+    		a.setTitle("B³¹d");
+    		a.setHeaderText("UWAGA!");
+    		a.showAndWait();
     	}
     }
     public void initialize() {

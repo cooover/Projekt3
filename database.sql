@@ -20,7 +20,7 @@ select * from users;
 
 CREATE TABLE activity (
     id_a INT AUTO_INCREMENT,
-    id_u INT unique,
+    id_u INT UNIQUE,
     training_materials DOUBLE DEFAULT 0,
     courseX DOUBLE DEFAULT 0,
     courseY DOUBLE DEFAULT 0,
@@ -31,6 +31,8 @@ CREATE TABLE activity (
 );
 
 select * from activity;
+select*from activity where id_u=2;
+
 
 CREATE TABLE results (
     id_r INT AUTO_INCREMENT,
@@ -46,4 +48,3 @@ CREATE TABLE results (
 );
 
 select * from results;
-insert into activity (id_u, training_materials, courseX, courseY, delegation) values(2,4.5,5,"+String.valueOf(tf_y.getText())+String.valueOf(tf_deleg.getText())+");";

@@ -5,6 +5,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.InputMismatchException;
+
+import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
+import com.mysql.jdbc.exceptions.jdbc4.MySQLSyntaxErrorException;
 
 import application.database.DBConnector;
 import application.model.TableActivityModel;
@@ -16,6 +20,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tab;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -24,6 +29,10 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 public class DBAdminController {
 	
+    @FXML
+    private Tab tab_price;
+	@FXML
+	private Tab tab_emp;
 	@FXML
 	private Label lbl_name;
     @FXML
@@ -82,6 +91,8 @@ public class DBAdminController {
     private Button btn_select_p;
     @FXML
     private Button btn_update_p;
+    @FXML
+    private Button btn_insert_p;
     @FXML
     private Label lbl_mat;
     @FXML
@@ -144,12 +155,19 @@ public class DBAdminController {
     		a.setTitle("B³¹d");
     		a.setHeaderText("UWAGA!");
     		a.showAndWait();
+    	}catch(MySQLIntegrityConstraintViolationException e) {
+    		Alert a = new Alert(AlertType.INFORMATION);
+    		a.setContentText("Nie mo¿na usun¹æ u¿ytkownika z aktywnymi stawkami. Usuñ najpierw stawki oraz godziny");
+    		a.setTitle("B³¹d");
+    		a.setHeaderText("UWAGA!");
+    		a.showAndWait();
     	}
     	}
     	
     
     @FXML
     void btnInsertAction(ActionEvent event){
+    	tab_price.setDisable(true);
     	select.setDisable(true);
     	update.setDisable(true);
     	delete.setDisable(true);
@@ -168,7 +186,8 @@ public class DBAdminController {
     }
     @FXML
     void btnInsertCommitAction(ActionEvent event) throws ClassNotFoundException, SQLException {
-    	Connection conn = db.Connection();
+    	try{
+    		Connection conn = db.Connection();
     	lbl_name.setDisable(false);
     	lbl_last.setDisable(false);
     	lbl_log.setDisable(false);
@@ -190,6 +209,14 @@ public class DBAdminController {
         	ps.executeUpdate();
         	btnSelectAction(event);	
     	}
+    	
+    	}catch(MySQLIntegrityConstraintViolationException e) {
+    		Alert a = new Alert(AlertType.INFORMATION);
+    		a.setContentText("Taki login ju¿ istnieje");
+    		a.setTitle("B³¹d");
+    		a.setHeaderText("UWAGA!");
+    		a.showAndWait();
+    	}
     	tf_name.setText("");
     	tf_last.setText("");
     	tf_log.setText("");
@@ -207,6 +234,7 @@ public class DBAdminController {
     	update.setDisable(false);
     	insert.setDisable(false);
     	delete.setDisable(false);
+    	tab_price.setDisable(false);
     }
     @FXML
     void btnUpdateAction(ActionEvent event) throws ClassNotFoundException, SQLException {
@@ -229,10 +257,12 @@ public class DBAdminController {
         	delete.setDisable(true);
         	insert.setDisable(true);
         	select.setDisable(true);
+        	tab_price.setDisable(true);
     	}catch(NullPointerException e) {
     		delete.setDisable(false);
         	insert.setDisable(false);
         	select.setDisable(false);
+        	tab_price.setDisable(false);
     		Alert a = new Alert(AlertType.INFORMATION);
     		a.setContentText("Zaznacz rekord, który chcesz zmodyfikowaæ");
     		a.setTitle("B³¹d");
@@ -243,13 +273,22 @@ public class DBAdminController {
     }
     @FXML
     void btnUpdateCommitAction(ActionEvent event) throws ClassNotFoundException, SQLException {
-    	Connection conn = db.Connection();
-    	int id_u = TableTwo.getSelectionModel().getSelectedItem().getId_u();
-    	String sql="update users set login='"+tf_log.getText()+"', pass='"+tf_pass.getText()+"', name='"+tf_name.getText()+"', last='"+tf_last.getText()+"' where id_u="+id_u+";";
-    	
-    	PreparedStatement ps = conn.prepareStatement(sql);
-    	ps.executeUpdate();
-    	btnSelectAction(event);
+    	try{
+    		Connection conn = db.Connection();
+	    	int id_u = TableTwo.getSelectionModel().getSelectedItem().getId_u();
+	    	String sql="update users set login='"+tf_log.getText()+"', pass='"+tf_pass.getText()+"', name='"+tf_name.getText()+"', last='"+tf_last.getText()+"' where id_u="+id_u+";";
+	    	
+	    	PreparedStatement ps = conn.prepareStatement(sql);
+	    	ps.executeUpdate();
+	    	btnSelectAction(event);
+	    	
+    	}catch(MySQLIntegrityConstraintViolationException e) {
+    		Alert a = new Alert(AlertType.INFORMATION);
+    		a.setContentText("Taki login ju¿ istnieje");
+    		a.setTitle("B³¹d");
+    		a.setHeaderText("UWAGA!");
+    		a.showAndWait();
+    	}
     	tf_name.setText("");
     	tf_last.setText("");
     	tf_log.setText("");
@@ -266,6 +305,7 @@ public class DBAdminController {
     	delete.setDisable(false);
     	insert.setDisable(false);
     	select.setDisable(false);
+    	tab_price.setDisable(false);
 
     }
     @FXML
@@ -301,6 +341,9 @@ public class DBAdminController {
         	tf_y.setDisable(false);
         	tf_deleg.setDisable(false);
         	btn_updateP.setDisable(false);
+        	btn_select_p.setDisable(true);
+        	tab_emp.setDisable(true);
+        	btn_insert_p.setDisable(true);
    	
     	}catch(NullPointerException e) {
     		Alert a = new Alert(AlertType.INFORMATION);
@@ -308,18 +351,29 @@ public class DBAdminController {
     		a.setTitle("B³¹d");
     		a.setHeaderText("UWAGA!");
     		a.showAndWait();
+    		btn_select_p.setDisable(false);
+        	tab_emp.setDisable(false);
+        	btn_insert_p.setDisable(false);
     	}
     }
 
     @FXML
     void btnUpdatePCommitAction(ActionEvent event) throws ClassNotFoundException, SQLException {
-    	Connection conn = db.Connection();
+    	try{Connection conn = db.Connection();
     	int id_u = TableThree.getSelectionModel().getSelectedItem().getId_u();
     	String sql="update activity set id_u="+id_u+", training_materials="+String.valueOf(tf_mat.getText())+", courseX="+String.valueOf(tf_x.getText())+", courseY="+String.valueOf(tf_y.getText())+", delegation="+String.valueOf(tf_deleg.getText())+"where id_u="+id_u+";";
     	
     	PreparedStatement ps = conn.prepareStatement(sql);
     	ps.executeUpdate();
     	btnSelectPAction(event);
+    	
+    	}catch (MySQLSyntaxErrorException e) {
+    		Alert a = new Alert(AlertType.INFORMATION);
+    		a.setContentText("Wprowadzono z³y znak");
+    		a.setTitle("B³¹d");
+    		a.setHeaderText("UWAGA!");
+    		a.showAndWait();
+    	}
     	tf_mat.setText("");
     	tf_x.setText("");
     	tf_y.setText("");
@@ -333,6 +387,9 @@ public class DBAdminController {
     	tf_y.setDisable(true);
     	tf_deleg.setDisable(true);
     	btn_updateP.setDisable(true);
+    	tab_emp.setDisable(false);
+    	btn_select_p.setDisable(false);
+    	btn_insert_p.setDisable(false);
     }
 
     @FXML
@@ -348,32 +405,43 @@ public class DBAdminController {
     	tf_y.setDisable(false);
     	tf_deleg.setDisable(false);
     	btn_insertP.setDisable(false);
-    	btn_select_p.setDisable(false);
-    	btn_update_p.setDisable(false);
+    	btn_select_p.setDisable(true);
+    	btn_update_p.setDisable(true);
+    	tab_emp.setDisable(true);
     }
     @FXML
     void btnInsertPCommitAction(ActionEvent event) throws ClassNotFoundException, SQLException {
-    	Connection conn = db.Connection();
-    	lbl_mat.setDisable(false);
-    	lbl_x.setDisable(false);
-    	lbl_y.setDisable(false);
-    	lbl_deleg.setDisable(false);
-    	tf_mat.setDisable(false);
-    	tf_x.setDisable(false);
-    	tf_y.setDisable(false);
-    	tf_deleg.setDisable(false);
-    	btn_insertP.setDisable(false);
-    	if(tf_mat.getText().equals("") ||tf_x.getText().equals("") ||tf_y.getText().equals("") ||tf_deleg.getText().equals("") ||tf_id_emp.getText().equals("")) {
+    	try{
+    		Connection conn = db.Connection();
+	    	
+	    	btn_insertP.setDisable(false);
+	    	if(tf_mat.getText().equals("") ||tf_x.getText().equals("") ||tf_y.getText().equals("") ||tf_deleg.getText().equals("") ||tf_id_emp.getText().equals("")) {
+	    		Alert a = new Alert(AlertType.INFORMATION);
+	    		a.setContentText("Nie wpisa³eœ wszystkich danych");
+	    		a.setTitle("B³¹d");
+	    		a.setHeaderText("UWAGA!");
+	    		a.showAndWait();
+	    	}else {
+	    		String sql="insert into activity (id_u, training_materials, courseX, courseY, delegation) values("+String.valueOf(tf_id_emp.getText())+","+String.valueOf(tf_mat.getText())+","+String.valueOf(tf_x.getText())+","+String.valueOf(tf_y.getText())+","+String.valueOf(tf_deleg.getText())+");";
+	        	PreparedStatement ps = conn.prepareStatement(sql);
+	        	ps.executeUpdate();
+	        	btnSelectPAction(event);	
+	    	}
+	    	
+	    	
+    	}catch (MySQLSyntaxErrorException e) {
     		Alert a = new Alert(AlertType.INFORMATION);
-    		a.setContentText("Nie wpisa³eœ wszystkich danych");
+    		a.setContentText("Wprowadzono z³y znak");
     		a.setTitle("B³¹d");
     		a.setHeaderText("UWAGA!");
     		a.showAndWait();
-    	}else {
-    		String sql="insert into activity (id_u, training_materials, courseX, courseY, delegation) values("+String.valueOf(tf_id_emp.getText())+","+String.valueOf(tf_mat.getText())+","+String.valueOf(tf_x.getText())+","+String.valueOf(tf_y.getText())+","+String.valueOf(tf_deleg.getText())+");";
-        	PreparedStatement ps = conn.prepareStatement(sql);
-        	ps.executeUpdate();
-        	btnSelectPAction(event);	
+    	}
+    	catch(MySQLIntegrityConstraintViolationException e) {
+    		Alert a = new Alert(AlertType.INFORMATION);
+    		a.setContentText("Ten pracownik nie istnieje lub  ma ju¿ dodane stawki");
+    		a.setTitle("B³¹d");
+    		a.setHeaderText("UWAGA!");
+    		a.showAndWait();
     	}
     	tf_mat.setText("");
     	tf_x.setText("");
@@ -392,6 +460,10 @@ public class DBAdminController {
     	btn_update_p.setDisable(false);
     	lbl_id_emp.setVisible(false);
     	tf_id_emp.setVisible(false);
+    	tf_id_emp.setText("");
+    	tab_emp.setDisable(false);
+
+    	
     }
     
     @FXML

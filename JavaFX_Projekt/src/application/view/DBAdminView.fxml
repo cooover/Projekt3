@@ -13,7 +13,7 @@
 
 <TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.DBAdminController">
    <tabs>
-      <Tab text="Pracownicy">
+      <Tab fx:id="tab_emp" text="Pracownicy">
          <content>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="346.0" prefWidth="580.0">
                <children>
@@ -68,7 +68,7 @@
             </AnchorPane>
          </content>
       </Tab>
-      <Tab text="Stawki">
+      <Tab fx:id="tab_price" text="Stawki">
          <content>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
@@ -109,7 +109,7 @@
                      </children>
                   </AnchorPane>
                   <Button fx:id="btn_updateP" disable="true" layoutX="417.0" layoutY="228.0" mnemonicParsing="false" onAction="#btnUpdatePCommitAction" prefHeight="46.0" prefWidth="142.0" text="Zatwierdź zmiany" />
-                  <Button layoutX="151.0" layoutY="186.0" mnemonicParsing="false" onAction="#btnInsertActionP" text="Dodaj stawki" />
+                  <Button fx:id="btn_insert_p" layoutX="151.0" layoutY="186.0" mnemonicParsing="false" onAction="#btnInsertActionP" text="Dodaj stawki" />
                   <Label fx:id="lbl_id_emp" layoutX="373.0" layoutY="190.0" text="Id Pracownika: " visible="false" />
                   <TextField fx:id="tf_id_emp" layoutX="453.0" layoutY="186.0" prefHeight="25.0" prefWidth="35.0" visible="false" />
                   <Button fx:id="btn_insertP" disable="true" layoutX="417.0" layoutY="288.0" mnemonicParsing="false" onAction="#btnInsertPCommitAction" prefHeight="46.0" prefWidth="142.0" text="Dodaj" />
