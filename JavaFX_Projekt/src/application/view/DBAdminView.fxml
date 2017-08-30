@@ -2,6 +2,8 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -9,47 +11,110 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.DBAdminController">
-   <children>
-      <TableView fx:id="TableTwo" prefHeight="200.0" prefWidth="200.0">
-        <columns>
-          <TableColumn fx:id="col_id" prefWidth="51.0" text="ID" />
-          <TableColumn fx:id="col_name" prefWidth="183.0" text="First Name" />
-            <TableColumn fx:id="col_last" prefWidth="183.0" text="Last Name" />
-            <TableColumn fx:id="col_salary" prefWidth="183.0" text="Salary" />
-        </columns>
-      </TableView>
-      <AnchorPane prefHeight="200.0" prefWidth="200.0">
-         <children>
-            <HBox layoutY="36.0" prefHeight="104.0" prefWidth="600.0">
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.DBAdminController">
+   <tabs>
+      <Tab text="Pracownicy">
+         <content>
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="346.0" prefWidth="580.0">
                <children>
-                  <VBox prefHeight="104.0" prefWidth="111.0">
+                  <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="336.0" prefWidth="600.0">
                      <children>
-                        <Label fx:id="lbl_name" alignment="CENTER_RIGHT" disable="true" prefHeight="26.0" prefWidth="159.0" text="Podaj imię: " textAlignment="RIGHT" />
-                        <Label fx:id="lbl_last" alignment="CENTER_RIGHT" disable="true" prefHeight="24.0" prefWidth="157.0" text="Podaj nazwisko: " textAlignment="RIGHT" />
-                        <Label fx:id="lbl_salary" alignment="CENTER_RIGHT" disable="true" prefHeight="23.0" prefWidth="154.0" text="Podaj zarobki netto: " textAlignment="RIGHT" />
-                     </children>
-                  </VBox>
-                  <VBox prefHeight="104.0" prefWidth="151.0">
-                     <children>
-                        <TextField fx:id="tf_name" disable="true" />
-                        <TextField fx:id="tf_last" disable="true" />
-                        <TextField fx:id="tf_salary" disable="true" />
+                        <TableView fx:id="TableTwo" prefHeight="200.0" prefWidth="200.0">
+                           <columns>
+                              <TableColumn fx:id="col_id" prefWidth="40.0" text="ID" />
+                              <TableColumn fx:id="col_name" prefWidth="140.0" text="Imię" />
+                              <TableColumn fx:id="col_last" prefWidth="140.0" text="Nazwisko" />
+                              <TableColumn fx:id="col_log" prefWidth="140.0" text="Login" />
+                              <TableColumn fx:id="col_pass" prefWidth="140.0" text="Hasło" />
+                           </columns>
+                        </TableView>
+                        <AnchorPane prefHeight="200.0" prefWidth="150.0">
+                           <children>
+                              <HBox layoutX="14.0" layoutY="57.0" prefHeight="104.0" prefWidth="268.0">
+                                 <children>
+                                    <VBox prefHeight="104.0" prefWidth="111.0">
+                                       <children>
+                                          <Label fx:id="lbl_name" alignment="CENTER_RIGHT" disable="true" prefHeight="26.0" prefWidth="159.0" text="Podaj imię: " textAlignment="RIGHT" />
+                                          <Label fx:id="lbl_last" alignment="CENTER_RIGHT" disable="true" prefHeight="24.0" prefWidth="157.0" text="Podaj nazwisko: " textAlignment="RIGHT" />
+                                          <Label fx:id="lbl_log" alignment="CENTER_RIGHT" disable="true" prefHeight="23.0" prefWidth="154.0" text="Podaj login: " textAlignment="RIGHT" />
+                                          <Label fx:id="lbl_pass" alignment="CENTER_RIGHT" disable="true" layoutX="10.0" layoutY="60.0" prefHeight="23.0" prefWidth="154.0" text="Podaj hasło: " textAlignment="RIGHT" />
+                                       </children>
+                                    </VBox>
+                                    <VBox prefHeight="104.0" prefWidth="151.0">
+                                       <children>
+                                          <TextField fx:id="tf_name" disable="true" />
+                                          <TextField fx:id="tf_last" disable="true" />
+                                          <TextField fx:id="tf_log" disable="true" />
+                                          <TextField fx:id="tf_pass" disable="true" layoutX="10.0" layoutY="60.0" />
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                              <Button fx:id="btn_insert" disable="true" layoutX="382.0" layoutY="147.0" mnemonicParsing="false" onAction="#btnInsertCommitAction" prefHeight="46.0" prefWidth="142.0" text="Zatwierdź pracownika" />
+                              <Button fx:id="btn_update" disable="true" layoutX="382.0" layoutY="57.0" mnemonicParsing="false" onAction="#btnUpdateCommitAction" prefHeight="46.0" prefWidth="142.0" text="Zatwierdź zmiany" />
+                              <HBox layoutX="-1.0" layoutY="-2.0" prefHeight="26.0" prefWidth="700.0">
+                                 <children>
+                                    <Button fx:id="insert" mnemonicParsing="false" onAction="#btnInsertAction" prefWidth="150.0" text="Dodaj pracownika" />
+                                    <Button fx:id="select" mnemonicParsing="false" onAction="#btnSelectAction" prefHeight="25.0" prefWidth="150.0" text="Wyświetl pracowników" />
+                                    <Button fx:id="delete" mnemonicParsing="false" onAction="#btnDeleteAction" prefWidth="150.0" text="Zwolnij pracownika" />
+                                    <Button fx:id="update" mnemonicParsing="false" onAction="#btnUpdateAction" prefWidth="150.0" text="Zmień dane" />
+                                 </children>
+                              </HBox>
+                           </children>
+                        </AnchorPane>
                      </children>
                   </VBox>
                </children>
-            </HBox>
-            <Button fx:id="btn_insert" disable="true" layoutX="467.0" layoutY="141.0" mnemonicParsing="false" onAction="#btnInsertCommitAction" prefHeight="46.0" prefWidth="121.0" text="Insert commit" />
-            <Button fx:id="btn_update" disable="true" layoutX="321.0" layoutY="141.0" mnemonicParsing="false" onAction="#btnUpdateCommitAction" prefHeight="46.0" prefWidth="121.0" text="Update commit" />
-            <HBox layoutX="-1.0" layoutY="-2.0" prefHeight="26.0" prefWidth="600.0">
+            </AnchorPane>
+         </content>
+      </Tab>
+      <Tab text="Stawki">
+         <content>
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
-                  <Button fx:id="select" mnemonicParsing="false" onAction="#btnSelectAction" prefHeight="25.0" prefWidth="150.0" text="Select" />
-                  <Button fx:id="delete" mnemonicParsing="false" onAction="#btnDeleteAction" prefWidth="150.0" text="Delete" />
-                  <Button fx:id="update" mnemonicParsing="false" onAction="#btnUpdateAction" prefWidth="150.0" text="Update" />
-                  <Button fx:id="insert" mnemonicParsing="false" onAction="#btnInsertAction" prefWidth="150.0" text="Insert" />
-               </children>
-            </HBox>
-         </children>
-      </AnchorPane>
-   </children>
-</VBox>
+                  <TableView fx:id="TableThree" prefHeight="175.0" prefWidth="600.0">
+                    <columns>
+                      <TableColumn fx:id="col3_id_a" prefWidth="40.0" text="ID" />
+                      <TableColumn fx:id="col3_id_u" prefWidth="90.0" text="ID pracownika" />
+                        <TableColumn fx:id="col3_mat" prefWidth="117.5" text="Materiały" />
+                        <TableColumn fx:id="col3_x" prefWidth="117.5" text="SzkolenieX" />
+                        <TableColumn fx:id="col3_y" prefWidth="117.5" text="SzkolenieY" />
+                        <TableColumn fx:id="col3_deleg" prefWidth="117.5" text="Delegacja" />
+                    </columns>
+                  </TableView>
+                  <Button fx:id="btn_select_p" layoutX="14.0" layoutY="186.0" mnemonicParsing="false" onAction="#btnSelectPAction" text="Wyświetl wszystko" />
+                  <Button fx:id="btn_update_p" layoutX="257.0" layoutY="186.0" mnemonicParsing="false" onAction="#btnUpdatePAction" text="Zmień stawki" />
+                  <AnchorPane layoutX="8.0" layoutY="217.0" prefHeight="142.0" prefWidth="266.0">
+                     <children>
+                        <HBox layoutY="19.0" prefHeight="104.0" prefWidth="268.0">
+                           <children>
+                              <VBox prefHeight="104.0" prefWidth="111.0">
+                                 <children>
+                                    <Label fx:id="lbl_mat" alignment="CENTER_RIGHT" disable="true" prefHeight="26.0" prefWidth="159.0" text="Stawka-materiały: " textAlignment="RIGHT" />
+                                    <Label fx:id="lbl_x" alignment="CENTER_RIGHT" disable="true" prefHeight="24.0" prefWidth="157.0" text="Stawka-szkolenieX: " textAlignment="RIGHT" />
+                                    <Label fx:id="lbl_y" alignment="CENTER_RIGHT" disable="true" prefHeight="23.0" prefWidth="154.0" text="Stawka-szkolenieY: " textAlignment="RIGHT" />
+                                    <Label fx:id="lbl_deleg" alignment="CENTER_RIGHT" disable="true" layoutX="10.0" layoutY="60.0" prefHeight="23.0" prefWidth="154.0" text="Stawka-delegacja: " textAlignment="RIGHT" />
+                                 </children>
+                              </VBox>
+                              <VBox prefHeight="104.0" prefWidth="151.0">
+                                 <children>
+                                    <TextField fx:id="tf_mat" disable="true" />
+                                    <TextField fx:id="tf_x" disable="true" />
+                                    <TextField fx:id="tf_y" disable="true" />
+                                    <TextField fx:id="tf_deleg" disable="true" layoutX="10.0" layoutY="60.0" />
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
+                     </children>
+                  </AnchorPane>
+                  <Button fx:id="btn_updateP" disable="true" layoutX="417.0" layoutY="228.0" mnemonicParsing="false" onAction="#btnUpdatePCommitAction" prefHeight="46.0" prefWidth="142.0" text="Zatwierdź zmiany" />
+                  <Button layoutX="151.0" layoutY="186.0" mnemonicParsing="false" onAction="#btnInsertActionP" text="Dodaj stawki" />
+                  <Label fx:id="lbl_id_emp" layoutX="373.0" layoutY="190.0" text="Id Pracownika: " visible="false" />
+                  <TextField fx:id="tf_id_emp" layoutX="453.0" layoutY="186.0" prefHeight="25.0" prefWidth="35.0" visible="false" />
+                  <Button fx:id="btn_insertP" disable="true" layoutX="417.0" layoutY="288.0" mnemonicParsing="false" onAction="#btnInsertPCommitAction" prefHeight="46.0" prefWidth="142.0" text="Dodaj" />
+               </children></AnchorPane>
+         </content>
+      </Tab>
+   </tabs>
+</TabPane>
