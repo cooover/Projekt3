@@ -18,7 +18,7 @@ public class MainController {
 
     @FXML
     void loginAction(MouseEvent event) throws IOException {
-    	Stage stageInfo = new Stage();
+    	Stage stageInfo = (Stage) lbl_log.getScene().getWindow();
 		Parent parent =(Parent) FXMLLoader.load(getClass().getResource("/application/view/LoginView.fxml"));
 		Scene sceneInfo = new Scene(parent);
 		stageInfo.setScene(sceneInfo);

@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import application.database.DBConnector;
+import application.model.TableActivityModel;
 import application.model.TableModel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -64,19 +65,19 @@ public class DBAdminController {
     @FXML
     private TableColumn<TableModel, String> col_last;   
     @FXML
-    private TableView<TableModel> TableThree;
+    private TableView<TableActivityModel> TableThree;
     @FXML
-    private TableColumn<TableModel, Integer> col3_id_a;
+    private TableColumn<TableActivityModel, Integer> col3_id_a;
     @FXML
-    private TableColumn<TableModel, Integer> col3_id_u;
+    private TableColumn<TableActivityModel, Integer> col3_id_u;
     @FXML
-    private TableColumn<TableModel, Double> col3_mat;
+    private TableColumn<TableActivityModel, Double> col3_mat;
     @FXML
-    private TableColumn<TableModel, Double> col3_x;
+    private TableColumn<TableActivityModel, Double> col3_x;
     @FXML
-    private TableColumn<TableModel, Double> col3_y;
+    private TableColumn<TableActivityModel, Double> col3_y;
     @FXML
-    private TableColumn<TableModel, Double> col3_deleg;
+    private TableColumn<TableActivityModel, Double> col3_deleg;
     @FXML
     private Button btn_select_p;
     @FXML
@@ -108,7 +109,7 @@ public class DBAdminController {
     
     public DBConnector db;
     public ObservableList<TableModel> data;
-    public ObservableList<TableModel> data3;
+    public ObservableList<TableActivityModel> data3;
     
     @FXML
     void btnSelectAction(ActionEvent event) throws ClassNotFoundException, SQLException {
@@ -224,8 +225,14 @@ public class DBAdminController {
         	tf_log.setDisable(false);
         	tf_pass.setDisable(false);
         	btn_update.setDisable(false);
-        //	btn_insert.setDisable(false);    	
+        //	btn_insert.setDisable(false);  
+        	delete.setDisable(true);
+        	insert.setDisable(true);
+        	select.setDisable(true);
     	}catch(NullPointerException e) {
+    		delete.setDisable(false);
+        	insert.setDisable(false);
+        	select.setDisable(false);
     		Alert a = new Alert(AlertType.INFORMATION);
     		a.setContentText("Zaznacz rekord, który chcesz zmodyfikowaæ");
     		a.setTitle("B³¹d");
@@ -256,6 +263,9 @@ public class DBAdminController {
     	tf_log.setDisable(true);
     	tf_pass.setDisable(true);
     	btn_update.setDisable(true);
+    	delete.setDisable(false);
+    	insert.setDisable(false);
+    	select.setDisable(false);
 
     }
     @FXML
@@ -264,14 +274,14 @@ public class DBAdminController {
     	data3 = FXCollections.observableArrayList();
     	ResultSet rs = conn.createStatement().executeQuery("select * from activity;");
     	while(rs.next()) {
-    		data3.add(new TableModel(rs.getInt(1),rs.getInt(2),rs.getDouble(3),rs.getDouble(4),rs.getDouble(5),rs.getDouble(6)));
+    		data3.add(new TableActivityModel(rs.getInt(1),rs.getInt(2),rs.getDouble(3),rs.getDouble(4),rs.getDouble(5),rs.getDouble(6)));
     	}
-    	col3_id_a.setCellValueFactory(new PropertyValueFactory<TableModel,Integer>("id_a"));
-    	col3_id_u.setCellValueFactory(new PropertyValueFactory<TableModel,Integer>("id_u"));
-    	col3_mat.setCellValueFactory(new PropertyValueFactory<TableModel,Double>("material"));
-    	col3_x.setCellValueFactory(new PropertyValueFactory<TableModel,Double>("courseX"));
-    	col3_y.setCellValueFactory(new PropertyValueFactory<TableModel,Double>("courseY"));
-    	col3_deleg.setCellValueFactory(new PropertyValueFactory<TableModel,Double>("delegation"));
+    	col3_id_a.setCellValueFactory(new PropertyValueFactory<TableActivityModel,Integer>("id_a"));
+    	col3_id_u.setCellValueFactory(new PropertyValueFactory<TableActivityModel,Integer>("id_u"));
+    	col3_mat.setCellValueFactory(new PropertyValueFactory<TableActivityModel,Double>("material"));
+    	col3_x.setCellValueFactory(new PropertyValueFactory<TableActivityModel,Double>("courseX"));
+    	col3_y.setCellValueFactory(new PropertyValueFactory<TableActivityModel,Double>("courseY"));
+    	col3_deleg.setCellValueFactory(new PropertyValueFactory<TableActivityModel,Double>("delegation"));
     	TableThree.setItems(null);
     	TableThree.setItems(data3);
     }
