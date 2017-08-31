@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="390.0" prefWidth="365.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.111" fx:controller="application.controller.DBUserController">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="390.0" prefWidth="365.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.DBUserController">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="549.0" minWidth="10.0" prefWidth="288.0" />
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="343.0" minWidth="10.0" prefWidth="77.0" />
@@ -42,5 +42,6 @@
             <Button fx:id="btn_close" layoutX="231.0" layoutY="16.0" mnemonicParsing="false" onAction="#btnCloseAction" text="Wyjdź" />
          </children>
       </AnchorPane>
+      <Button fx:id="btn_show" mnemonicParsing="false" onAction="#btnShowAction" prefHeight="25.0" prefWidth="77.0" text="Wyświetl" GridPane.columnIndex="1" GridPane.rowIndex="6" />
    </children>
 </GridPane>

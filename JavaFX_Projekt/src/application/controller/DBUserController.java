@@ -3,8 +3,10 @@ package application.controller;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 import com.mysql.jdbc.exceptions.jdbc4.MySQLSyntaxErrorException;
 
 import application.database.DBConnector;
@@ -43,6 +45,9 @@ public class DBUserController {
     private Button btn_ok;
     @FXML
     private Button btn_close;
+    @FXML
+    private Button btn_show;
+   
     
     public DBConnector db;
     public ObservableList<TableResultModel> data;
@@ -68,9 +73,15 @@ public class DBUserController {
     		a.showAndWait();
     	}else {
 	    	try {
+	    		int month = combo.getSelectionModel().getSelectedItem();
+	        	ResultSet rs = conn.createStatement().executeQuery("select * from results where month="+month+" and id_u="+LoginController.idPracownika+";");
+	        	if(rs.next()){
+	        		throw new MySQLIntegrityConstraintViolationException();
+	        	}
 	    		String sql="insert into results (month, id_u, training_materials_h, courseX_h, courseY_h, delegation_h) values("+combo.getSelectionModel().getSelectedItem()+","+LoginController.idPracownika+","+tf_mat_h.getText()+","+tf_x_h.getText()+","+tf_y_h.getText()+","+tf_deleg_h.getText()+");";
 	        	PreparedStatement ps = conn.prepareStatement(sql);
 	        	ps.executeUpdate();
+	
 	        	Stage stageInfo = (Stage) combo.getScene().getWindow();
 	    		Parent parent =(Parent) FXMLLoader.load(getClass().getResource("/application/view/EndView.fxml"));
 	    		Scene sceneInfo = new Scene(parent);
@@ -84,9 +95,24 @@ public class DBUserController {
 	    		a.setTitle("B³¹d");
 	    		a.setHeaderText("UWAGA!");
 	    		a.showAndWait();
+	    	}catch (MySQLIntegrityConstraintViolationException e) {
+				Alert a = new Alert(AlertType.INFORMATION);
+				a.setContentText("W tym miesi¹cu dodano ju¿ przepracowane godziny. W celu zmiany skonaktuj siê z administratorem");
+				a.setTitle("B³¹d");
+				a.setHeaderText("UWAGA!");
+				a.showAndWait();
 	    	}
     	}
-  
+    }
+    @FXML
+    void btnShowAction(ActionEvent event) throws IOException {
+    	Stage stageTable = new Stage();
+		Parent parent =(Parent) FXMLLoader.load(getClass().getResource("/application/view/EndView.fxml"));
+		Scene sceneTable = new Scene(parent);
+		stageTable.setScene(sceneTable);
+		stageTable.setTitle("WYNIKI");
+		stageTable.getIcons().add(new Image("http://www.iconsplace.com/download/orange-database-512.png"));
+		stageTable.show();
     }
     public void initialize(){
     	db = new DBConnector();

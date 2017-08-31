@@ -1,16 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="139.0" prefWidth="514.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="139.0" prefWidth="514.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.EndController">
    <children>
-      <Label layoutX="87.0" layoutY="56.0" prefHeight="27.0" prefWidth="341.0" text=" W ... zarobiłeś ...zł (brutto) = ... (netto). ">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Label>
+      <Label layoutX="32.0" layoutY="14.0" text="Wybierz miesiąc, który chcesz sprawdzić: " />
+      <ComboBox fx:id="combo" layoutX="258.0" layoutY="10.0" prefHeight="27.0" prefWidth="43.0" />
+      <AnchorPane fx:id="ap_result" layoutX="35.0" layoutY="47.0" prefHeight="72.0" prefWidth="446.0" visible="false">
+         <children>
+            <Label alignment="CENTER" layoutX="35.0" layoutY="8.0" prefHeight="56.0" prefWidth="376.0" text="Zarobiłeś            zł (brutto) =            zł (netto). ">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="lbl_salary_br" alignment="CENTER_RIGHT" layoutX="117.0" layoutY="23.0" prefHeight="17.0" prefWidth="50.0">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="lbl_salary_net" alignment="CENTER_RIGHT" layoutX="272.0" layoutY="23.0" prefHeight="17.0" prefWidth="50.0">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <Button fx:id="btn_check" layoutX="456.0" layoutY="93.0" mnemonicParsing="false" onAction="#btnCheckAction">
+         <graphic>
+            <ImageView fitHeight="31.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../tick.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
    </children>
 </AnchorPane>

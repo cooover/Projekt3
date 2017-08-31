@@ -31,7 +31,7 @@ CREATE TABLE activity (
 );
 
 select * from activity;
-select*from activity where id_u=2;
+select*from activity where id_u=3;
 
 
 CREATE TABLE results (
@@ -48,3 +48,6 @@ CREATE TABLE results (
 );
 
 select * from results;
+select* from results where id_u=3 and month=2;
+select* from activity where id_u=3;
+select training_materials from activity where id_u=3;

@@ -74,7 +74,7 @@ public class LoginController {
 	    		Parent parent =(Parent) FXMLLoader.load(getClass().getResource("/application/view/DBAdminView.fxml"));
 	    		Scene sceneTable = new Scene(parent);
 	    		stageTable.setScene(sceneTable);
-	    		stageTable.setTitle("Pracodawca");
+	    		stageTable.setTitle("PRACODAWCA");
 	    		stageTable.getIcons().add(new Image("http://www.iconsplace.com/download/orange-database-512.png"));
 	    		stageTable.show();
 	    	}else {

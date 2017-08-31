@@ -144,20 +144,22 @@ public class DBAdminController {
     	try {
     	int id_del = TableTwo.getSelectionModel().getSelectedItem().getId_u();
 
-    	String sql="delete from users where id_u="+id_del+";";
+    	String sql="delete from results where id_u="+id_del+";";
     	
     	PreparedStatement ps = conn.prepareStatement(sql);
     	ps.executeUpdate();
+    	String sql2="delete from activity where id_u="+id_del+";";
+    	
+    	PreparedStatement ps2 = conn.prepareStatement(sql2);
+    	ps2.executeUpdate();
+    	String sql3="delete from users where id_u="+id_del+";";
+    	
+    	PreparedStatement ps3 = conn.prepareStatement(sql3);
+    	ps3.executeUpdate();
     	btnSelectAction(event);
     	}catch(NullPointerException e) {
     		Alert a = new Alert(AlertType.INFORMATION);
     		a.setContentText("Nie zaznaczono ¿adnego rekordu");
-    		a.setTitle("B³¹d");
-    		a.setHeaderText("UWAGA!");
-    		a.showAndWait();
-    	}catch(MySQLIntegrityConstraintViolationException e) {
-    		Alert a = new Alert(AlertType.INFORMATION);
-    		a.setContentText("Nie mo¿na usun¹æ u¿ytkownika z aktywnymi stawkami. Usuñ najpierw stawki oraz godziny");
     		a.setTitle("B³¹d");
     		a.setHeaderText("UWAGA!");
     		a.showAndWait();
@@ -423,9 +425,18 @@ public class DBAdminController {
 	    		a.showAndWait();
 	    	}else {
 	    		String sql="insert into activity (id_u, training_materials, courseX, courseY, delegation) values("+String.valueOf(tf_id_emp.getText())+","+String.valueOf(tf_mat.getText())+","+String.valueOf(tf_x.getText())+","+String.valueOf(tf_y.getText())+","+String.valueOf(tf_deleg.getText())+");";
+	        	ResultSet rs = conn.createStatement().executeQuery("select * from activity where id_u="+String.valueOf(tf_id_emp.getText())+";");
+	        	if(rs.next()) {
+	        		throw new MySQLIntegrityConstraintViolationException();
+	        	}
+	             	rs = conn.createStatement().executeQuery("select * from users where id_u="+String.valueOf(tf_id_emp.getText())+";");
+	        	if(!rs.next()) {
+	        		throw new NullPointerException();//
+	        	}
 	        	PreparedStatement ps = conn.prepareStatement(sql);
 	        	ps.executeUpdate();
-	        	btnSelectPAction(event);	
+	        	btnSelectPAction(event);
+	  
 	    	}
 	    	
 	    	
@@ -435,13 +446,18 @@ public class DBAdminController {
     		a.setTitle("B³¹d");
     		a.setHeaderText("UWAGA!");
     		a.showAndWait();
-    	}
-    	catch(MySQLIntegrityConstraintViolationException e) {
-    		Alert a = new Alert(AlertType.INFORMATION);
-    		a.setContentText("Ten pracownik nie istnieje lub  ma ju¿ dodane stawki");
-    		a.setTitle("B³¹d");
-    		a.setHeaderText("UWAGA!");
-    		a.showAndWait();
+    	} catch (NullPointerException e) {
+			Alert a = new Alert(AlertType.INFORMATION);
+			a.setContentText("Nie ma takiego pracownika");
+			a.setTitle("B³¹d");
+			a.setHeaderText("UWAGA!");
+			a.showAndWait();
+    	}catch (MySQLIntegrityConstraintViolationException e) {
+			Alert a = new Alert(AlertType.INFORMATION);
+			a.setContentText("Ten pracownik ma ju¿ dodane stawki");
+			a.setTitle("B³¹d");
+			a.setHeaderText("UWAGA!");
+			a.showAndWait();
     	}
     	tf_mat.setText("");
     	tf_x.setText("");
