@@ -10,6 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.DBAdminController">
    <tabs>
@@ -54,10 +55,27 @@
                               <Button fx:id="btn_update" disable="true" layoutX="382.0" layoutY="57.0" mnemonicParsing="false" onAction="#btnUpdateCommitAction" prefHeight="46.0" prefWidth="142.0" text="Zatwierdź zmiany" />
                               <HBox layoutX="-1.0" layoutY="-2.0" prefHeight="26.0" prefWidth="700.0">
                                  <children>
-                                    <Button fx:id="insert" mnemonicParsing="false" onAction="#btnInsertAction" prefWidth="150.0" text="Dodaj pracownika" />
-                                    <Button fx:id="select" mnemonicParsing="false" onAction="#btnSelectAction" prefHeight="25.0" prefWidth="150.0" text="Wyświetl pracowników" />
-                                    <Button fx:id="delete" mnemonicParsing="false" onAction="#btnDeleteAction" prefWidth="150.0" text="Zwolnij pracownika" />
-                                    <Button fx:id="update" mnemonicParsing="false" onAction="#btnUpdateAction" prefWidth="150.0" text="Zmień dane" />
+                                    <Button fx:id="insert" mnemonicParsing="false" onAction="#btnInsertAction" prefWidth="120.0" text="Dodaj pracownika">
+                                       <font>
+                                          <Font size="10.0" />
+                                       </font></Button>
+                                    <Button fx:id="select" mnemonicParsing="false" onAction="#btnSelectAction" prefWidth="120.0" text="Wyświetl pracowników">
+                                       <font>
+                                          <Font size="10.0" />
+                                       </font></Button>
+                                    <Button fx:id="delete" mnemonicParsing="false" onAction="#btnDeleteAction" prefWidth="120.0" text="Zwolnij pracownika">
+                                       <font>
+                                          <Font size="10.0" />
+                                       </font></Button>
+                                    <Button fx:id="update" mnemonicParsing="false" onAction="#btnUpdateAction" prefWidth="120.0" text="Zmień dane">
+                                       <font>
+                                          <Font size="10.0" />
+                                       </font></Button>
+                                    <Button mnemonicParsing="false" onAction="#btnStatisticAction" prefWidth="120.0" text="Statystyki">
+                                       <font>
+                                          <Font size="10.0" />
+                                       </font>
+                                    </Button>
                                  </children>
                               </HBox>
                            </children>

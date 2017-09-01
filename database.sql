@@ -1,5 +1,5 @@
-create database logindb;
-use logindb;
+#create database logindb;
+#use logindb;
 
 drop table results;
 drop table activity;
@@ -49,5 +49,7 @@ CREATE TABLE results (
 
 select * from results;
 select* from results where id_u=3 and month=2;
+
 select* from activity where id_u=3;
 select training_materials from activity where id_u=3;
+select * from activity natural join results where month=2;

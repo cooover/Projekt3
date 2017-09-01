@@ -1,6 +1,7 @@
 package application.controller;
 
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -17,6 +18,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -26,6 +30,8 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.stage.Stage;
 
 public class DBAdminController {
 	
@@ -424,6 +430,7 @@ public class DBAdminController {
 	    		a.setHeaderText("UWAGA!");
 	    		a.showAndWait();
 	    	}else {
+	    		
 	    		String sql="insert into activity (id_u, training_materials, courseX, courseY, delegation) values("+String.valueOf(tf_id_emp.getText())+","+String.valueOf(tf_mat.getText())+","+String.valueOf(tf_x.getText())+","+String.valueOf(tf_y.getText())+","+String.valueOf(tf_deleg.getText())+");";
 	        	ResultSet rs = conn.createStatement().executeQuery("select * from activity where id_u="+String.valueOf(tf_id_emp.getText())+";");
 	        	if(rs.next()) {
@@ -432,6 +439,8 @@ public class DBAdminController {
 	             	rs = conn.createStatement().executeQuery("select * from users where id_u="+String.valueOf(tf_id_emp.getText())+";");
 	        	if(!rs.next()) {
 	        		throw new NullPointerException();//
+	        	}if(rs.getString("perm").equals("111")) {
+	        		throw new SQLException();
 	        	}
 	        	PreparedStatement ps = conn.prepareStatement(sql);
 	        	ps.executeUpdate();
@@ -458,6 +467,12 @@ public class DBAdminController {
 			a.setTitle("B³¹d");
 			a.setHeaderText("UWAGA!");
 			a.showAndWait();
+    	}catch (SQLException e) {
+			Alert a = new Alert(AlertType.INFORMATION);
+			a.setContentText("Nie mo¿esz dodaæ stawek pracodawcy");
+			a.setTitle("B³¹d");
+			a.setHeaderText("UWAGA!");
+			a.showAndWait();
     	}
     	tf_mat.setText("");
     	tf_x.setText("");
@@ -480,6 +495,17 @@ public class DBAdminController {
     	tab_emp.setDisable(false);
 
     	
+    }
+
+    @FXML
+    void btnStatisticAction(ActionEvent event) throws IOException {
+    	Stage stageInfo = (Stage) TableTwo.getScene().getWindow();
+		Parent parent =(Parent) FXMLLoader.load(getClass().getResource("/application/view/StatisticView.fxml"));
+		Scene sceneInfo = new Scene(parent);
+		stageInfo.setScene(sceneInfo);
+		stageInfo.setTitle("STATYSTYKI");
+		stageInfo.getIcons().add(new Image("http://www.iconsplace.com/download/orange-database-512.png"));
+		stageInfo.show();
     }
     
     @FXML

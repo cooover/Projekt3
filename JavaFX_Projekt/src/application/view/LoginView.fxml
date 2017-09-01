@@ -19,11 +19,11 @@
       </Label>
       <Separator prefWidth="200.0" />
       <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="26.0" prefWidth="309.0" text="Podaj login" textAlignment="CENTER" />
-      <TextField fx:id="tf_login" text="admin1" />
+      <TextField fx:id="tf_login" />
       <Label alignment="CENTER" prefHeight="26.0" prefWidth="310.0" text="Podaj hasło" textAlignment="CENTER" />
       <AnchorPane prefHeight="63.0" prefWidth="309.0">
          <children>
-            <PasswordField fx:id="pf_pass" layoutY="2.0" prefHeight="26.0" prefWidth="203.0" text="pass1" />
+            <PasswordField fx:id="pf_pass" layoutY="2.0" prefHeight="26.0" prefWidth="203.0" />
             <TextField fx:id="tf_pass" layoutY="2.0" prefHeight="26.0" prefWidth="203.0" visible="false" />
             <Button fx:id="btn_show" layoutX="203.0" mnemonicParsing="false" onMouseEntered="#showAction" onMouseExited="#hideAction" prefHeight="28.0" prefWidth="81.0" text="Pokaż hasło" />
          </children>

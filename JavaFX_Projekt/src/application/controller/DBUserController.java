@@ -82,13 +82,13 @@ public class DBUserController {
 	        	PreparedStatement ps = conn.prepareStatement(sql);
 	        	ps.executeUpdate();
 	
-	        	Stage stageInfo = (Stage) combo.getScene().getWindow();
+	        	Stage stageTable = new Stage();
 	    		Parent parent =(Parent) FXMLLoader.load(getClass().getResource("/application/view/EndView.fxml"));
-	    		Scene sceneInfo = new Scene(parent);
-	    		stageInfo.setScene(sceneInfo);
-	    		stageInfo.setTitle("WYNIKI");
-	    		stageInfo.getIcons().add(new Image("http://www.iconsplace.com/download/orange-database-512.png"));
-	    		stageInfo.show();
+	    		Scene sceneTable = new Scene(parent);
+	    		stageTable.setScene(sceneTable);
+	    		stageTable.setTitle("WYNIKI");
+	    		stageTable.getIcons().add(new Image("http://www.iconsplace.com/download/orange-database-512.png"));
+	    		stageTable.show();
 	    	}catch(MySQLSyntaxErrorException e) {
 	    		Alert a = new Alert(AlertType.INFORMATION);
 	    		a.setContentText("Wprowadzi³eœ z³y znak");
