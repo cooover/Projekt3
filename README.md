@@ -1,0 +1,2 @@
+System ewidencji czasu pracy i wynagrodzeń. Administrator może dodawać pracowników, przypisywać im stawki za konkretne czynności, zwolnić pracowników oraz wyświetlić statystyki. 
+Pracownik, w swoim panelu może dodać ilość przepracowanych godzin w konkretnym miesiącu w ramach różnych czynności. Na wyjściu dostaje informację o wynagrodzeniu.
